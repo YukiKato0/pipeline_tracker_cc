@@ -1,7 +1,7 @@
 # Creator Content & Pipeline Tracker
 
 Dokumentasi utama proyek dan petunjuk teknis telah disusun lengkap di direktori frontend:
-**[frontend_nextjs/README.md](file:///c:/laragon/www/latihan/belajar_20/frontend_nextjs/README.md)**
+**[frontend_nextjs/README.md](file: pipeline_tracker_cc/frontend_nextjs/README.md)**
 
 ### Ringkasan Status Proyek:
 

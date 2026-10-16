@@ -8,10 +8,8 @@ export const contentDetailPreview: ContentDetailPreviewRecord = {
     ...channelPreviewRecords[0],
   },
   format_type: "short_video",
-  description:
-    "A short behind-the-scenes story about turning a rough idea into a finished frame.",
-  script_draft:
-    "Open on the studio lights.\nShow the first sketch.\nCut to the final frame.\nClose with the sound of the room going quiet.",
+  description: "A short behind-the-scenes story about turning a rough idea into a finished frame.",
+  script_draft: "Open on the studio lights.\nShow the first sketch.\nCut to the final frame.\nClose with the sound of the room going quiet.",
   priority: "medium",
   scheduled_date: "2026-10-30",
   published_date: null,
@@ -19,16 +17,8 @@ export const contentDetailPreview: ContentDetailPreviewRecord = {
   checklists: [
     { id: "task-01", task_name: "Shape the opening hook", is_completed: true },
     { id: "task-02", task_name: "Record the voiceover", is_completed: true },
-    {
-      id: "task-03",
-      task_name: "Add captions and sound mix",
-      is_completed: false,
-    },
-    {
-      id: "task-04",
-      task_name: "Review the final export",
-      is_completed: false,
-    },
+    { id: "task-03", task_name: "Add captions and sound mix", is_completed: false },
+    { id: "task-04", task_name: "Review the final export", is_completed: false },
   ],
   metrics: [
     {
