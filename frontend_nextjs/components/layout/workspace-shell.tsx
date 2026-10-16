@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useState, useSyncExternalStore } from "react";
 import {
   Clapperboard,
   Layers3,
@@ -11,7 +11,7 @@ import {
   Radio,
   X,
 } from "lucide-react";
-import { clearSession, getSession, type SessionUser } from "@/lib/auth/session";
+import { clearSession, getSession, subscribeSession, type SessionUser } from "@/lib/auth/session";
 
 function ActiveWorkspaceNavigation({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
@@ -72,10 +72,18 @@ function WorkspaceBrand() {
   );
 }
 
+function useCurrentUser(): SessionUser | null {
+  return useSyncExternalStore(
+    subscribeSession,
+    getSession,
+    () => null
+  );
+}
+
 export default function WorkspaceShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [isMobileNavigationOpen, setIsMobileNavigationOpen] = useState(false);
-  const [currentUser] = useState<SessionUser | null>(() => getSession());
+  const currentUser = useCurrentUser();
 
   function handleLogout() {
     clearSession();
@@ -89,12 +97,12 @@ export default function WorkspaceShell({ children }: { children: React.ReactNode
       <aside className="flex min-h-screen flex-[0_0_248px] flex-col border-r border-[#e2e8e2] bg-[#fbfcfa] px-4.5 py-7 max-[800px]:flex-[0_0_218px] max-[800px]:px-3.5 max-[640px]:hidden">
         <WorkspaceBrand />
         <div className="my-9.5 mb-8.5 flex min-h-14.5 w-full items-center gap-2.5 rounded-lg border border-[#e2e8e2] bg-white p-2.25 text-left text-[#18231f] shadow-xs">
-          <span className="inline-flex size-8.5 flex-[0_0_34px] items-center justify-center rounded-md bg-[#f3e6cd] font-serif text-[17px] text-[#674a1e]" aria-hidden="true">
+          <span suppressHydrationWarning className="inline-flex size-8.5 flex-[0_0_34px] items-center justify-center rounded-md bg-[#f3e6cd] font-serif text-[17px] text-[#674a1e]" aria-hidden="true">
             {userInitial}
           </span>
           <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-            <strong className="truncate text-[12px] font-semibold">{currentUser?.name || "Creator Studio"}</strong>
-            <span className="truncate text-[10px] text-[#68746e]">{currentUser?.email || "Personal workspace"}</span>
+            <strong suppressHydrationWarning className="truncate text-[12px] font-semibold">{currentUser?.name || "Creator Studio"}</strong>
+            <span suppressHydrationWarning className="truncate text-[10px] text-[#68746e]">{currentUser?.email || "Personal workspace"}</span>
           </div>
         </div>
         <WorkspaceNavigation />
@@ -138,7 +146,7 @@ export default function WorkspaceShell({ children }: { children: React.ReactNode
 
           <div className="flex items-center gap-3.5">
             {currentUser && (
-              <span className="text-[11px] font-medium text-[#44554b] max-[640px]:hidden">
+              <span suppressHydrationWarning className="text-[11px] font-medium text-[#44554b] max-[640px]:hidden">
                 {currentUser.name}
               </span>
             )}
